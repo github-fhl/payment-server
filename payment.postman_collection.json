@@ -1,0 +1,3576 @@
+{
+	"info": {
+		"_postman_id": "25cf1580-3709-4463-921b-2cb85ffcce27",
+		"name": "payment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "A - 变更后接口",
+			"description": null,
+			"item": [
+				{
+					"name": "Order",
+					"description": null,
+					"item": [
+						{
+							"name": "批量获取 order",
+							"description": null,
+							"item": [
+								{
+									"name": "默认",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{host}}orders?role=InterCompany&applyStatus=toHandle",
+											"host": [
+												"{{host}}orders"
+											],
+											"query": [
+												{
+													"key": "role",
+													"value": "InterCompany"
+												},
+												{
+													"key": "applyStatus",
+													"value": "toHandle",
+													"description": "toHandle/handled"
+												}
+											]
+										},
+										"description": "res:companylist\nstate:companylist"
+									},
+									"response": []
+								},
+								{
+									"name": "申请人",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{host}}orders?role=applicant&applyStatus=handling",
+											"host": [
+												"{{host}}orders"
+											],
+											"query": [
+												{
+													"key": "role",
+													"value": "applicant"
+												},
+												{
+													"key": "applyStatus",
+													"value": "handling",
+													"description": "toHandle/handling/handled"
+												}
+											]
+										},
+										"description": "res:companylist\nstate:companylist"
+									},
+									"response": []
+								},
+								{
+									"name": "主管",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{host}}orders?role=manager&applyStatus=toHandle",
+											"host": [
+												"{{host}}orders"
+											],
+											"query": [
+												{
+													"key": "role",
+													"value": "manager"
+												},
+												{
+													"key": "applyStatus",
+													"value": "toHandle",
+													"description": "toHandle/handled"
+												}
+											]
+										},
+										"description": "res:companylist\nstate:companylist"
+									},
+									"response": []
+								},
+								{
+									"name": "出纳 —— 审批时",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{host}}orders?role=cashier&applyStatus=toHandle&cashierType=approve",
+											"host": [
+												"{{host}}orders"
+											],
+											"query": [
+												{
+													"key": "role",
+													"value": "cashier"
+												},
+												{
+													"key": "applyStatus",
+													"value": "toHandle",
+													"description": "toHandle/handling/handled"
+												},
+												{
+													"key": "cashierType",
+													"value": "approve"
+												}
+											]
+										},
+										"description": "res:companylist\nstate:companylist"
+									},
+									"response": []
+								},
+								{
+									"name": "出纳 —— 付款页面",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{host}}orders?role=cashier&applyStatus=toHandle&cashierType=pay",
+											"host": [
+												"{{host}}orders"
+											],
+											"query": [
+												{
+													"key": "role",
+													"value": "cashier"
+												},
+												{
+													"key": "applyStatus",
+													"value": "toHandle",
+													"description": "toHandle/handled"
+												},
+												{
+													"key": "cashierType",
+													"value": "pay"
+												}
+											]
+										},
+										"description": "res:companylist\nstate:companylist"
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "获取 Reimuser 剩余金额",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{host}}v2/reimusers/getRest?reimuserId=24941090-06da-11e7-b23d-513f39f5849c&validDate=2018-04&paytypeId=cola",
+									"host": [
+										"{{host}}v2"
+									],
+									"path": [
+										"reimusers",
+										"getRest"
+									],
+									"query": [
+										{
+											"key": "reimuserId",
+											"value": "24941090-06da-11e7-b23d-513f39f5849c"
+										},
+										{
+											"key": "validDate",
+											"value": "2018-04"
+										},
+										{
+											"key": "paytypeId",
+											"value": "cola",
+											"description": "paytypeId 和 paytypedetailId 必须填写一个"
+										},
+										{
+											"key": "paytypedetailId",
+											"value": null,
+											"disabled": true
+										}
+									]
+								},
+								"description": "res:companylist\nstate:companylist"
+							},
+							"response": []
+						},
+						{
+							"name": "申请人能修改 orderdetail 的信息",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"rejectRemark\":\"\",\n\t\"isSubmit\":true,\n\t\"details\":[\n\t\t{\n\t\t\t\"operate\": \"update\",\n\t\t\t\"orderdetailId\":\"b3a2f610-42b7-11e8-b18e-4545be777d08\",\n\t\t\t\"bankName\":\"dsafdsasdf\",\n\t\t\t\"bankNum\":\"23432432432432\",\n\t\t\t\"vendorName\": \"穆氏建筑设计（上海）有限公司\"\n\t\t}\n\t]\n}"
+								},
+								"url": {
+									"raw": "{{host}}applicantUpdateDetails/PR201804003",
+									"host": [
+										"{{host}}applicantUpdateDetails"
+									],
+									"path": [
+										"PR201804003"
+									]
+								},
+								"description": "出纳能够修改的字段只有 bankNum,bankName\n其它字段是用于计算的\n\norder 状态为 payFailed 时\n更新并提交：\n  增加 isSubmit 字段"
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "系统设置",
+					"description": null,
+					"item": [],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "初始化-V2",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}v2/initPayment",
+							"host": [
+								"{{host}}v2"
+							],
+							"path": [
+								"initPayment"
+							]
+						},
+						"description": "必填项：sdafj\ndasflkjk\n  dsaf\n    rewyt"
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "57f5963a-4b82-4960-8e7b-3af62e4b1e61",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "042e8cf7-038d-46e3-9653-847e11cba835",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "A - 打印 - 导出",
+			"description": null,
+			"item": [
+				{
+					"name": "打印 order",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}print/paymentOrder?orderId=201705002",
+							"host": [
+								"{{host}}print"
+							],
+							"path": [
+								"paymentOrder"
+							],
+							"query": [
+								{
+									"key": "orderId",
+									"value": "201705002"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "打印付款凭证",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}print/paymentVoucher?orderId=PR201710001&voucherDate=2017-10-03",
+							"host": [
+								"{{host}}print"
+							],
+							"path": [
+								"paymentVoucher"
+							],
+							"query": [
+								{
+									"key": "orderId",
+									"value": "PR201710001"
+								},
+								{
+									"key": "voucherDate",
+									"value": "2017-10-03"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "导出付款凭证",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}download/paymentVoucher?orderId=PR201711001&voucherDate=2017-10-03",
+							"host": [
+								"{{host}}download"
+							],
+							"path": [
+								"paymentVoucher"
+							],
+							"query": [
+								{
+									"key": "orderId",
+									"value": "PR201711001"
+								},
+								{
+									"key": "voucherDate",
+									"value": "2017-10-03"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "导出银行数据",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}download/bankInfo?orderIdArr=[\"PR201711007\",\"PR201711008\"]",
+							"host": [
+								"{{host}}download"
+							],
+							"path": [
+								"bankInfo"
+							],
+							"query": [
+								{
+									"key": "orderIdArr",
+									"value": "[\"PR201711007\",\"PR201711008\"]"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "检查 vendor code 是否有重复",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}checkVendorCode?vendorId=123a73a0-06da-11e7-b23d-513f39f5849c&vendorCode=code3",
+							"host": [
+								"{{host}}checkVendorCode"
+							],
+							"query": [
+								{
+									"key": "vendorId",
+									"value": "123a73a0-06da-11e7-b23d-513f39f5849c"
+								},
+								{
+									"key": "vendorCode",
+									"value": "code3"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "A-上传",
+			"description": null,
+			"item": [
+				{
+					"name": "上传签名",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "123",
+									"value": "",
+									"type": "file"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}uploadfile",
+							"host": [
+								"{{host}}uploadfile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "上传logo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "123",
+									"value": "",
+									"type": "file"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}uploadfile",
+							"host": [
+								"{{host}}uploadfile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "导入 vendor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}importVendor?filePath=vendor.xlsx",
+							"host": [
+								"{{host}}importVendor"
+							],
+							"query": [
+								{
+									"key": "filePath",
+									"value": "vendor.xlsx"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "上传文件第二版",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"value": ""
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}v2/uploadFile",
+							"host": [
+								"{{host}}v2"
+							],
+							"path": [
+								"uploadFile"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "A-审批操作",
+			"description": null,
+			"item": [
+				{
+					"name": "提交审批",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"idArr\": [\"PR201804005\"],\n  \"accountId\": \"A_manager\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}submit/orders",
+							"host": [
+								"{{host}}submit"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "撤销申请单",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"idArr\": [\"201703001\"]\n}"
+						},
+						"url": {
+							"raw": "{{host}}backout/orders",
+							"host": [
+								"{{host}}backout"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "主管批准",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"idArr\": [\"201704002\"],\n  \"rejectRemark\": null\n}"
+						},
+						"url": {
+							"raw": "{{host}}managerAppro/orders",
+							"host": [
+								"{{host}}managerAppro"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "主管拒绝",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"idArr\": [\"201704002\"],\n  \"rejectRemark\": null\n}"
+						},
+						"url": {
+							"raw": "{{host}}managerRefuse/orders",
+							"host": [
+								"{{host}}managerRefuse"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "出纳批准",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"idArr\": [\"201703001\"],\n  \"rejectRemark\": null\n}"
+						},
+						"url": {
+							"raw": "{{host}}cashierAppro/orders",
+							"host": [
+								"{{host}}cashierAppro"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "出纳拒绝",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"idArr\": [\"201703001\"],\n  \"rejectRemark\": null\n}"
+						},
+						"url": {
+							"raw": "{{host}}cashierRefuse/orders",
+							"host": [
+								"{{host}}cashierRefuse"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "出纳批准 To Inter Company",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"idArr\": [\"PR201804005\"],\n  \"rejectRemark\": \"\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}cashierApproToIC/orders",
+							"host": [
+								"{{host}}cashierApproToIC"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "IC 批准",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"idArr\": [\n    \"PR201804005\"\n    ],\n  \"rejectRemark\": \"\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}icAppro/orders",
+							"host": [
+								"{{host}}icAppro"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "IC 拒绝",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"idArr\": [\n    \"PR201804005\"\n    ],\n  \"rejectRemark\": \"\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}icRefuse/orders",
+							"host": [
+								"{{host}}icRefuse"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "财务批准",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"idArr\": [\n    \"PR201804005\"\n    ],\n  \"rejectRemark\": \"\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}financeAppro/orders",
+							"host": [
+								"{{host}}financeAppro"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "财务拒绝",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"idArr\": [\n    \"201703001\"\n    ],\n  \"rejectRemark\": null\n}"
+						},
+						"url": {
+							"raw": "{{host}}financeRefuse/orders",
+							"host": [
+								"{{host}}financeRefuse"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "总监批准",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"idArr\": [\n    \"201703001\",\n    \"201703002\"\n    ],\n  \"rejectRemark\": null\n}"
+						},
+						"url": {
+							"raw": "{{host}}chiefAppro/orders",
+							"host": [
+								"{{host}}chiefAppro"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "总监拒绝",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"idArr\": [\n    \"201703001\"\n    ],\n  \"rejectRemark\": null\n}"
+						},
+						"url": {
+							"raw": "{{host}}chiefRefuse/orders",
+							"host": [
+								"{{host}}chiefRefuse"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "出纳付款",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"idArr\":[\"PR201804001\"],\n\t\"subjectId\":\"222a73a0-06da-11e7-b23d-513f39f5849c\",\n\t\"paidDate\":\"2018-04-13\",\n\t\"paidNo\":{\n\t\t\"PR201804001\":\"GC1804HBP11-I001\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{host}}cashierPay/orders",
+							"host": [
+								"{{host}}cashierPay"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "出纳付款失败",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"idArr\": [\n    \"PR201804001\"\n    ],\n  \"rejectRemark\": \"\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}cashierPayFailed/orders",
+							"host": [
+								"{{host}}cashierPayFailed"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "申请人修改信息并提交",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"idArr\": [\"PR201705001\"]\n}"
+						},
+						"url": {
+							"raw": "{{host}}applicantUpdate/orders",
+							"host": [
+								"{{host}}applicantUpdate"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "出纳确认付款成功",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"idArr\": [\n    \"PR201804001\"\n    ],\n  \"rejectRemark\": \"\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}cashierPaySucceed/orders",
+							"host": [
+								"{{host}}cashierPaySucceed"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "A-登录",
+			"description": null,
+			"item": [
+				{
+					"name": "登录",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"superMan\",\n  \"password\": \"Password1\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}login",
+							"host": [
+								"{{host}}login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "登出",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}logout",
+							"host": [
+								"{{host}}logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "获取当前用户信息",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}userinfo",
+							"host": [
+								"{{host}}userinfo"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ldap",
+			"description": null,
+			"item": [
+				{
+					"name": "ldap 批量获取员工信息",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}ldaps?cn=shscan&department=",
+							"host": [
+								"{{host}}ldaps"
+							],
+							"query": [
+								{
+									"key": "cn",
+									"value": "shscan"
+								},
+								{
+									"key": "department",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "获取 ldap 的所有部门",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}ldaps/departments",
+							"host": [
+								"{{host}}ldaps"
+							],
+							"path": [
+								"departments"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "付款公司-company",
+			"description": "付款公司",
+			"item": [
+				{
+					"name": "get company list|getcompanylist",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}companys",
+							"host": [
+								"{{host}}companys"
+							]
+						},
+						"description": "res:companylist\nstate:companylist"
+					},
+					"response": []
+				},
+				{
+					"name": "create company|createcompany",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\" : \"\",\n  \"bankNum\" : \"\",\n  \"telphone\" : \"\",\n  \"logoPath\" : \"\",\n  \"remark\" : \"\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}companys",
+							"host": [
+								"{{host}}companys"
+							]
+						},
+						"description": "res:company\nstate:company\n必填项：\n  name"
+					},
+					"response": []
+				},
+				{
+					"name": "update company|updatecompany",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\" : \"Blue Hive\",\n  \"telphone\" : \"\",\n  \"logoPath\" : \"\",\n  \"remark\" : \"\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}companys/24787240-06da-11e7-b23d-513f39f5849c",
+							"host": [
+								"{{host}}companys"
+							],
+							"path": [
+								"24787240-06da-11e7-b23d-513f39f5849c"
+							]
+						},
+						"description": "res:company\nstate:company"
+					},
+					"response": []
+				},
+				{
+					"name": "delete company|deletecompany",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": {
+							"raw": "{{host}}companys/{{companyid}}",
+							"host": [
+								"{{host}}companys"
+							],
+							"path": [
+								"{{companyid}}"
+							]
+						},
+						"description": "res:company\nstate:company"
+					},
+					"response": []
+				},
+				{
+					"name": "get company|getcompany",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}companys/{{companyid}}",
+							"host": [
+								"{{host}}companys"
+							],
+							"path": [
+								"{{companyid}}"
+							]
+						},
+						"description": "res:company\nstate:company"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "供应商-vendor--完成",
+			"description": "供应商",
+			"item": [
+				{
+					"name": "get vendor list|getvendorlist",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}vendors?status=1&code_like=A&name_like=ALLSORTS HABIT CRE",
+							"host": [
+								"{{host}}vendors"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "1"
+								},
+								{
+									"key": "code_like",
+									"value": "A"
+								},
+								{
+									"key": "name_like",
+									"value": "ALLSORTS HABIT CRE"
+								}
+							]
+						},
+						"description": "res:vendorlist\nstate:vendorlist"
+					},
+					"response": []
+				},
+				{
+					"name": "create vendor|createvendor",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\" : \"中华供应商\",\n  \"contacter\" : \"太阳哥\",\n  \"code\": \"code1\",\n  \"telphone\" : \"121212121\",\n  \"vendorType\" : \"company\",\n  \"remark\" : \"\",\n  \"details\" : [{\n    \"bankNum\" : \"09090909099090\",\n    \"bankName\" : \"国家开发银行\"\n  }]\n}"
+						},
+						"url": {
+							"raw": "{{host}}vendors",
+							"host": [
+								"{{host}}vendors"
+							]
+						},
+						"description": "res:vendor\nstate:vendor\n必填项：\n  name\n  vendorType\n  \nvendorType: 'user','company'"
+					},
+					"response": []
+				},
+				{
+					"name": "update vendor|updatevendor",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\" : \"三胖之家\",\n  \"contacter\" : \"三胖\",\n  \"code\": \"code2\",\n  \"telphone\" : \"14141414\",\n  \"vendorType\" : \"company\",\n  \"remark\" : \"\",\n  \"details\" : [{\n    \"bankNum\" : \"09090909099090\",\n    \"bankName\" : \"国家开发银行\"\n  }]\n}"
+						},
+						"url": {
+							"raw": "{{host}}vendors/{{vendorid}}",
+							"host": [
+								"{{host}}vendors"
+							],
+							"path": [
+								"{{vendorid}}"
+							]
+						},
+						"description": "res:vendor\nstate:vendor"
+					},
+					"response": []
+				},
+				{
+					"name": "delete vendor|deletevendor",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": {
+							"raw": "{{host}}vendors/{{vendorid}}",
+							"host": [
+								"{{host}}vendors"
+							],
+							"path": [
+								"{{vendorid}}"
+							]
+						},
+						"description": "res:vendor\nstate:vendor"
+					},
+					"response": []
+				},
+				{
+					"name": "get vendor|getvendor",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}vendors/{{vendorid}}",
+							"host": [
+								"{{host}}vendors"
+							],
+							"path": [
+								"{{vendorid}}"
+							]
+						},
+						"description": "res:vendor\nstate:vendor"
+					},
+					"response": []
+				},
+				{
+					"name": "获取所有 vendor code",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}vendorCodes",
+							"host": [
+								"{{host}}vendorCodes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "审批申请通知信息log-applylog",
+			"description": "审批申请log",
+			"item": [
+				{
+					"name": "获取用户的通知数|getapplyloglist",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}applylogs/{{accountId}}",
+							"host": [
+								"{{host}}applylogs"
+							],
+							"path": [
+								"{{accountId}}"
+							]
+						},
+						"description": "res:applyloglist\nstate:applyloglist"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "报销对象-reimuser",
+			"description": "报销对象",
+			"item": [
+				{
+					"name": "get reimuser list|getreimuserlist",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}reimusers?name=Robet&paytypeArr=[\"cola\"]",
+							"host": [
+								"{{host}}reimusers"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Robet"
+								},
+								{
+									"key": "paytypeArr",
+									"value": "[\"cola\"]"
+								}
+							]
+						},
+						"description": "res:reimuserlist\nstate:reimuserlist\n\n1、可以根据人名进行筛选 name=Robet\n2、可以根据报销类别筛选 paytypeArr=[\"car\",\"cola\"]"
+					},
+					"response": []
+				},
+				{
+					"name": "create reimuser|createreimuser",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\" : \"忠犬八公\",\n  \"remark\" : \"欢迎来到\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}reimusers",
+							"host": [
+								"{{host}}reimusers"
+							]
+						},
+						"description": "res:reimuser\nstate:reimuser\n必填项：\n  name\n  bankNum\n  bankName"
+					},
+					"response": []
+				},
+				{
+					"name": "update reimuser|updatereimuser",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\" : \"\",\n  \"remark\" : \"\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}reimusers/{{reimuserid}}",
+							"host": [
+								"{{host}}reimusers"
+							],
+							"path": [
+								"{{reimuserid}}"
+							]
+						},
+						"description": "res:reimuser\nstate:reimuser"
+					},
+					"response": []
+				},
+				{
+					"name": "delete reimuser|deletereimuser",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": {
+							"raw": "{{host}}reimusers/{{reimuserid}}",
+							"host": [
+								"{{host}}reimusers"
+							],
+							"path": [
+								"{{reimuserid}}"
+							]
+						},
+						"description": "res:reimuser\nstate:reimuser"
+					},
+					"response": []
+				},
+				{
+					"name": "get reimuser|getreimuser",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}reimusers/24a6ae30-06da-11e7-b23d-513f39f5849c?paytypeId=COLA&validDate=2017-05",
+							"host": [
+								"{{host}}reimusers"
+							],
+							"path": [
+								"24a6ae30-06da-11e7-b23d-513f39f5849c"
+							],
+							"query": [
+								{
+									"key": "paytypeId",
+									"value": "COLA"
+								},
+								{
+									"key": "validDate",
+									"value": "2017-05"
+								}
+							]
+						},
+						"description": "res:reimuser\nstate:reimuser\n\n当传 validDate=2017-03 时，代表查询该人员在该年月该类别的剩余金额\n当不传 validDate 时，代表查询该人员该类别的 所有记录"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "报销对象的预设费用详情-reimuserdetail",
+			"description": "报销对象的预设费用详情",
+			"item": [
+				{
+					"name": "get reimuserdetail list|getreimuserdetaillist",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}reimuserdetails",
+							"host": [
+								"{{host}}reimuserdetails"
+							]
+						},
+						"description": "res:reimuserdetaillist\nstate:reimuserdetaillist"
+					},
+					"response": []
+				},
+				{
+					"name": "create reimuserdetail|createreimuserdetail",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"paytypeId\" : \"car\",\n  \"paytypedetailId\" : \"car-1\",\n  \"reimuserId\" : \"24941090-06da-11e7-b23d-513f39f5849c\",\n  \"details\": [{\n    \"money\" : 2000,\n    \"validDate\" : \"2017-04\",\n    \"remark\" : \"\",\n    \"vendordetailId\" : \"69b769e0-0eca-11e7-8881-5f624753c8ec\"\n  },{\n    \"id\": \"c78b01a1-12a1-11e7-b042-dd0d3e23b1e6\",\n    \"money\" : 2000,\n    \"validDate\" : \"2017-06\",\n    \"remark\" : \"\",\n    \"vendordetailId\" : \"69b769e0-0eca-11e7-8881-5f624753c8ec\",\n    \"delete\": true\n  }]\n}"
+						},
+						"url": {
+							"raw": "{{host}}reimuserdetails",
+							"host": [
+								"{{host}}reimuserdetails"
+							]
+						},
+						"description": "res:reimuserdetail\nstate:reimuserdetail\n必填项：\n  money\n  validDate\n  reimuserId\n  paytypeId"
+					},
+					"response": []
+				},
+				{
+					"name": "delete reimuserdetail|deletereimuserdetail",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": {
+							"raw": "{{host}}reimuserdetails/{{reimuserdetailid}}",
+							"host": [
+								"{{host}}reimuserdetails"
+							],
+							"path": [
+								"{{reimuserdetailid}}"
+							]
+						},
+						"description": "res:reimuserdetail\nstate:reimuserdetail"
+					},
+					"response": []
+				},
+				{
+					"name": "get reimuserdetail|getreimuserdetail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}reimuserdetails/{{reimuserdetailid}}",
+							"host": [
+								"{{host}}reimuserdetails"
+							],
+							"path": [
+								"{{reimuserdetailid}}"
+							]
+						},
+						"description": "res:reimuserdetail\nstate:reimuserdetail"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "报销类型-paytype",
+			"description": "报销类型",
+			"item": [
+				{
+					"name": "get paytype list|getpaytypelist",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}paytypes",
+							"host": [
+								"{{host}}paytypes"
+							]
+						},
+						"description": "res:paytypelist\nstate:paytypelist"
+					},
+					"response": []
+				},
+				{
+					"name": "create paytype|createpaytype",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\" : \"test4\",\n  \"description\" : \"\",\n  \"category\" : \"employee\",\n  \"details\": [{\n    \"id\": \"testdetail1123\",\n    \"description\": \"\",\n\t\"subjectId\": \"801a73a0-06da-11e7-b23d-513f39f5849c\",\n    \"remark\": \"\"\n  },{\n    \"id\": \"testdetail2343\",\n    \"description\": \"\",\n\t\"subjectId\": \"801a73a0-06da-11e7-b23d-513f39f5849c\",\n    \"remark\": \"\"\n  }]\n}"
+						},
+						"url": {
+							"raw": "{{host}}paytypes",
+							"host": [
+								"{{host}}paytypes"
+							]
+						},
+						"description": "res:paytype\nstate:paytype\n必填项：\n  id\n  category\n  \ncategory 有两种：employee/operatingCost"
+					},
+					"response": []
+				},
+				{
+					"name": "update paytype|updatepaytype",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"description\" : \"\",\n  \"details\": [{\n    \"id\": \"testdetail634\",\n    \"description\": \"\",\n    \"remark\": \"\",\n    \"subjectId\": \"111a73a0-06da-11e7-b23d-513f39f5849c\",\n    \"operate\": \"new\"\n  },{\n    \"id\": \"testdetail945\",\n    \"description\": \"\",\n    \"remark\": \"\",\n    \"operate\": \"new\",\n    \"subjectId\": \"111a73a0-06da-11e7-b23d-513f39f5849c\"\n  }]\n}"
+						},
+						"url": {
+							"raw": "{{host}}paytypes/test4",
+							"host": [
+								"{{host}}paytypes"
+							],
+							"path": [
+								"test4"
+							]
+						},
+						"description": "res:paytype\nstate:paytype\n\noperate: new / delete / update / noChange"
+					},
+					"response": []
+				},
+				{
+					"name": "delete paytype|deletepaytype",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": {
+							"raw": "{{host}}paytypes/{{paytypeid}}",
+							"host": [
+								"{{host}}paytypes"
+							],
+							"path": [
+								"{{paytypeid}}"
+							]
+						},
+						"description": "res:paytype\nstate:paytype"
+					},
+					"response": []
+				},
+				{
+					"name": "get paytype|getpaytype",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}paytypes/:paytypeId",
+							"host": [
+								"{{host}}paytypes"
+							],
+							"path": [
+								":paytypeId"
+							],
+							"variable": [
+								{
+									"key": "paytypeId",
+									"value": "car"
+								}
+							]
+						},
+						"description": "res:paytype\nstate:paytype"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "用户-account",
+			"description": "用户",
+			"item": [
+				{
+					"name": "get account list|getaccountlist",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}accounts?roleId=chief&status=1",
+							"host": [
+								"{{host}}accounts"
+							],
+							"query": [
+								{
+									"key": "roleId",
+									"value": "chief"
+								},
+								{
+									"key": "status",
+									"value": "1"
+								}
+							]
+						},
+						"description": "res:accountlist\nstate:accountlist"
+					},
+					"response": []
+				},
+				{
+					"name": "create account|createaccount",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"accountArr\" : [{\n    \"cn\": \"Shore Liu\",\n    \"title\": \"Digital Senior Art Director\",\n    \"department\": \"GTB_AP_CN_SHA\",\n    \"mail\": \"shore.liu@gtb.com\",\n    \"telephoneNumber\": \"+86 21 22877600\"\n    },{\n    \"cn\": \"Shin Huang\",\n    \"title\": \"Account Manager\",\n    \"department\": \"Account Management J. Walter Thompson Shanghai\",\n    \"mail\": \"shin.huang@jwt.com\",\n    \"telephoneNumber\": \"+86 21 2287 7166\"\n    }]\n}"
+						},
+						"url": {
+							"raw": "{{host}}accounts",
+							"host": [
+								"{{host}}accounts"
+							]
+						},
+						"description": "res:account\nstate:account\n必填项：\n  id\n  name"
+					},
+					"response": []
+				},
+				{
+					"name": "delete account|deleteaccount",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"idArr\": [\n    \"A_hr\", \"A_maintainer\"\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{host}}accounts",
+							"host": [
+								"{{host}}accounts"
+							]
+						},
+						"description": "res:account\nstate:account"
+					},
+					"response": []
+				},
+				{
+					"name": "get account|getaccount",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}accounts/{{accountid}}",
+							"host": [
+								"{{host}}accounts"
+							],
+							"path": [
+								"{{accountid}}"
+							]
+						},
+						"description": "res:account\nstate:account"
+					},
+					"response": []
+				},
+				{
+					"name": "更新用户信息",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Digital Senior Art Director\",\n  \"department\": \"GTB_AP_CN_SHA\",\n  \"mail\": \"shore.liu@gtb.com\",\n  \"telephoneNumber\": \"+86 21 22877600\",\n  \"managerUsr\": \"A_manager\",\n  \"directorUsr\": \"A_manager_B\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}accounts/{{accountid}}",
+							"host": [
+								"{{host}}accounts"
+							],
+							"path": [
+								"{{accountid}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "用户添加角色-accountrole",
+			"description": "用户角色关联表",
+			"item": [
+				{
+					"name": "create accountrole|createaccountrole",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"accountId\" : \"A_general\",\n  \"roleIdArr\" : [\"general\", \"finance\"]\n}"
+						},
+						"url": {
+							"raw": "{{host}}accountroles",
+							"host": [
+								"{{host}}accountroles"
+							]
+						},
+						"description": "res:accountrole\nstate:accountrole\n必填项："
+					},
+					"response": []
+				},
+				{
+					"name": "delete accountrole|deleteaccountrole",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"accountroleidArr\": [\n    \"f31d68c1-28d7-11e7-9293-112daa83b0a8\",\n    \"069a3342-28da-11e7-9293-112daa83b0a8\"\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{host}}accountroles",
+							"host": [
+								"{{host}}accountroles"
+							]
+						},
+						"description": "res:accountrole\nstate:accountrole"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "用户签名表-signature",
+			"description": "用户签名表",
+			"item": [
+				{
+					"name": "create signature|createsignature",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"pathArr\" : [{\n    \"path\": \"20170327/30638d10-12c4-11e7-8b0c-dbcdb7bf25bc.png\"\n  },{\n    \"id\": \"98c680b0-12a1-11e7-922d-e717b0d3d397\",\n    \"path\": \"20170327/superMan1.png\"\n  }],\n  \"accountId\" : \"superMan\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}signatures",
+							"host": [
+								"{{host}}signatures"
+							]
+						},
+						"description": "res:signature\nstate:signature\n必填项：\n  path\n  accountId"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "申请单-order--完成",
+			"description": "申请单",
+			"item": [
+				{
+					"name": "修改 order 细节信息",
+					"description": null,
+					"item": [
+						{
+							"name": "出纳修改是否收到打印 order 的状态",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"idArr\": [\"PR201803001\"],\n  \"action\": \"y\"\n}"
+								},
+								"url": {
+									"raw": "{{host}}receiveOrderStatus",
+									"host": [
+										"{{host}}receiveOrderStatus"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "出纳修改 order 金额 copy",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"PR201803001\",\n  \"paidDate\": \"2018-03-03\"\n}"
+								},
+								"url": {
+									"raw": "{{host}}paidDate",
+									"host": [
+										"{{host}}paidDate"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "get order list|getorderlist",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}orders?status=1&role=applicant&applyStatus=toHandle",
+							"host": [
+								"{{host}}orders"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "1"
+								},
+								{
+									"key": "role",
+									"value": "applicant"
+								},
+								{
+									"key": "applyStatus",
+									"value": "toHandle"
+								},
+								{
+									"key": "cashierType",
+									"value": "pay",
+									"disabled": true
+								},
+								{
+									"key": "approStatus",
+									"value": "toApproByManager",
+									"disabled": true
+								},
+								{
+									"key": "createdAt",
+									"value": "[\"2017-05-06 00:00:00\",\"2017-11-06 23:59:59\"]",
+									"disabled": true
+								},
+								{
+									"key": "subjectStatus",
+									"value": "n",
+									"disabled": true
+								},
+								{
+									"key": "invoiceStatus",
+									"value": "y",
+									"disabled": true
+								},
+								{
+									"key": "description",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "vendorId",
+									"value": "123a73a0-06da-11e7-b23d-513f39f5849c",
+									"disabled": true
+								},
+								{
+									"key": "subjectId",
+									"value": "b8b48d11-c52d-11e7-b01d-956d174ec48d",
+									"disabled": true
+								},
+								{
+									"key": "paidNo",
+									"value": "GC16",
+									"disabled": true
+								}
+							]
+						},
+						"description": "res:orderlist\nstate:orderlist\n\norder的状态划分：\n1. 员工查看时包含三种情况：\n  1. 员工待提交(包含被拒绝部分)：role = applicant & applyStatus = toHandle\n  2. 员工正在审批：role = applicant & applyStatus = handling\n  3. 审批完成：role = applicant & applyStatus = handled\n2. 主管查看order时，分成两种情况:\n  1. 待审批：role = manager & applyStatus = toHandle\n  2. 已审批：role = manager & applyStatus = handled\n3. 出纳查看时，需要增加一个cashierType的字段，用于区分是审核阶段/付款阶段（只用在toHandle的状态中）\n  1. 审核阶段：cashierType = approve\n  2. 付款阶段：cashierType = pay"
+					},
+					"response": []
+				},
+				{
+					"name": "create order|createorder",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"isSubmit\": true,\n  \"rejectRemark\": \"评论\",\n  \"description\" : \"测试订单\",\n  \"vendorType\": \"user\",\n  \"remark\" : \"备注\",\n  \"companyId\" : \"24787240-06da-11e7-b23d-513f39f5849c\",\n  \"currency\" : \"CNY\",\n  \"details\" : [{\n      \"money\" : \"1\",\n      \"payDate\" : \"2017-09\",\n      \"bankNum\" : \"110110\",\n      \"bankName\" : \"不厉害的银行\",\n      \"paytypeId\" : \"COLA\",\n      \"reimuserId\" : \"24941090-06da-11e7-b23d-513f39f5849c\",\n      \"vendorName\" : \"你好呀\",\n      \"contacter\" : \"胖哥\",\n      \"telphone\" : \"021-14141414\",\n      \"remark\" : \"备注\",\n    \"companyId\" : \"24787240-06da-11e7-b23d-513f39f5849c\"\n  },{\n    \"money\" : \"1000\",\n    \"payDate\" : null,\n    \"bankNum\" : \"5555555555555555555555555555\",\n    \"bankName\" : \"开发银行\",\n    \"paytypeId\" : \"Financial_Cost\",\n    \"paytypedetailId\" : \"Audit\",\n    \"reimuserId\" : \"56a6ae30-06da-11e7-b23d-513f39f5849c\",\n    \"vendorName\" : \"中华之光\",\n    \"contacter\" : \"胖哥\",\n    \"telphone\" : \"021-14141414\",\n    \"remark\" : \"备注\",\n  \"companyId\" : \"24787240-06da-11e7-b23d-513f39f5849c\"\n  }]\n}"
+						},
+						"url": {
+							"raw": "{{host}}orders",
+							"host": [
+								"{{host}}orders"
+							]
+						},
+						"description": "res:order\nstate:order\n\n\n当创建并提交时，增加对应字段：\n  必填：\n    isSubmit: true\n    accountId : (对应的主管ID)\n  选填：\n    rejectRemark: 评论\n\n必填项：\n  companyId\n  currency\n  details：\n    money\n    paytypeId\n    payeeType(付款类别为员工时，填写reimuser；办公室相关、其它类别，填写vendor)\n    bankNum(付款对象类别为vendor时，必填)\n    bankName(付款对象类别为vendor时，必填)\n    \nvendorType: 'user'/'company' 个人、公司类别\n\n    \n注意：\n  contacter 、 telphone 在办公室类别、其它类别时，才会有\n类型1：reimuser\n{\n  \"description\" : \"测试订单\",\n  \"remark\" : \"备注\",\n  \"companyId\" : \"24787240-06da-11e7-b23d-513f39f5849c\",\n  \"currency\" : \"CNY\",\n  \"details\" : [{\n    \"money\" : \"1000\",\n    \"payDate\" : \"2017-02\",\n    \"bankNum\" : null,\n    \"bankName\" : null,\n    \"paytypeId\" : \"car\",\n    \"reimuserId\" : \"24941090-06da-11e7-b23d-513f39f5849c\",\n    \"vendorName\" : null,\n    \"payeeType\" : \"reimuser\",\n    \"contacter\" : null,\n    \"telphone\" : null,\n    \"remark\" : \"备注\"\n  }]\n}\n类型2：vendor\n{\n  \"description\" : \"测试订单\",\n  \"remark\" : \"备注\",\n  \"companyId\" : \"24787240-06da-11e7-b23d-513f39f5849c\",\n  \"currency\" : \"CNY\",\n  \"details\" : [{\n    \"money\" : \"1000\",\n    \"payDate\" : null,\n    \"bankNum\" : \"4444444444444444444444\",\n    \"bankName\" : \"朝鲜银行\",\n    \"paytypeId\" : \"paper\",\n    \"reimuserId\" : null,\n    \"vendorName\" : \"中华之光\",\n    \"payeeType\" : \"vendor\",\n    \"contacter\" : \"胖哥\",\n    \"telphone\" : \"021-14141414\",\n    \"remark\" : \"备注\"\n  }]\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "update order|updateorder",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"isSubmit\": true,\n  \"rejectRemark\": \"评论\",\n  \"description\" : \"测试清单2\",\n  \"remark\" : \"\",\n  \"companyId\" : \"24787240-06da-11e7-b23d-513f39f5849c\",\n  \"currency\" : \"CNY\",\n  \"details\" : [{\n      \"money\" : \"1000\",\n      \"payDate\" : \"2017-03\",\n      \"bankNum\" : \"110110\",\n      \"bankName\" : \"厉害的银行\",\n      \"paytypeId\" : \"cola\",\n      \"reimuserId\" : \"24941090-06da-11e7-b23d-513f39f5849c\",\n      \"vendorName\" : \"中华之光\",\n      \"contacter\" : \"胖哥\",\n      \"telphone\" : \"021-14141414\",\n      \"remark\" : \"备注\",\n      \"bankAddress\": \"境外付款情况下\",\n      \"bankCodeType\": \"境外付款情况下\",\n      \"bankCode\": \"境外付款情况下\",\n      \"country\": \"境外付款情况下\"\n  },{\n    \"money\" : \"1000\",\n    \"payDate\" : null,\n    \"bankNum\" : \"5555555555555555555555555555\",\n    \"bankName\" : \"开发银行\",\n    \"paytypeId\" : \"other\",\n    \"reimuserId\" : null,\n    \"vendorName\" : \"中华之光\",\n    \"contacter\" : \"胖哥\",\n    \"telphone\" : \"021-14141414\",\n    \"remark\" : \"备注\",\n      \"bankAddress\": \"境外付款情况下\",\n      \"bankCodeType\": \"境外付款情况下\",\n      \"bankCode\": \"境外付款情况下\",\n      \"country\": \"境外付款情况下\"\n  }]\n}"
+						},
+						"url": {
+							"raw": "{{host}}orders/{{orderId}}",
+							"host": [
+								"{{host}}orders"
+							],
+							"path": [
+								"{{orderId}}"
+							]
+						},
+						"description": "res:order\nstate:order\n\n\n当创建并提交时，增加对应字段：\n  必填：\n    isSubmit: true\n    accountId : (对应的主管ID)\n  选填：\n    rejectRemark: 评论"
+					},
+					"response": []
+				},
+				{
+					"name": "出纳更新 order",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"currency\": \"CNY\",\n  \"details\" : [{\n      \"money\" : 56538,\n      \"companyId\": \"12387241-06da-11e7-b23d-513f39f5849c\",\n      \"payDate\" : \"2017-03\",\n      \"bankNum\" : \"110110\",\n      \"bankName\" : \"厉害的银行\",\n      \"paytypeId\" : \"Mobile-staff\",\n      \"reimuserId\" : \"24941090-06da-11e7-b23d-513f39f5849c\",\n      \"vendorName\" : \"中华之光\",\n      \"contacter\" : \"胖哥\",\n      \"telphone\" : \"021-14141414\",\n      \"remark\" : \"备注\"\n  },{\n    \"money\" : 0.4,\n      \"companyId\": \"12387241-06da-11e7-b23d-513f39f5849c\",\n      \"payDate\" : \"2017-03\",\n    \"bankNum\" : \"5555555555555555555555555555\",\n    \"bankName\" : \"开发银行\",\n    \"paytypeId\" : \"Mobile-staff\",\n      \"reimuserId\" : \"24941090-06da-11e7-b23d-513f39f5849c\",\n    \"vendorName\" : \"中华之光\",\n    \"contacter\" : \"胖哥\",\n    \"telphone\" : \"021-14141414\",\n    \"remark\" : \"备注\"\n  }]\n}"
+						},
+						"url": {
+							"raw": "{{host}}updateByCashier/:id",
+							"host": [
+								"{{host}}updateByCashier"
+							],
+							"path": [
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "NE201805003"
+								}
+							]
+						},
+						"description": "res:order\nstate:order\n\n\n当创建并提交时，增加对应字段：\n  必填：\n    isSubmit: true\n    accountId : (对应的主管ID)\n  选填：\n    rejectRemark: 评论"
+					},
+					"response": []
+				},
+				{
+					"name": "delete order|deleteorder",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": {
+							"raw": "{{host}}orders/{{orderid}}",
+							"host": [
+								"{{host}}orders"
+							],
+							"path": [
+								"{{orderid}}"
+							]
+						},
+						"description": "res:order\nstate:order"
+					},
+					"response": []
+				},
+				{
+					"name": "get order|getorder",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}orders/:orderId",
+							"host": [
+								"{{host}}orders"
+							],
+							"path": [
+								":orderId"
+							],
+							"variable": [
+								{
+									"key": "orderId",
+									"value": "NE201804002"
+								}
+							]
+						},
+						"description": "res:order\nstate:order"
+					},
+					"response": []
+				},
+				{
+					"name": "查询年月中最大的单据号",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}paidNo?subjectDate=1708&subjectId=5ef9db21-b7a1-11e7-b3f4-e55a94268271",
+							"host": [
+								"{{host}}paidNo"
+							],
+							"query": [
+								{
+									"key": "subjectDate",
+									"value": "1708"
+								},
+								{
+									"key": "subjectId",
+									"value": "5ef9db21-b7a1-11e7-b3f4-e55a94268271"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "根据成本中心、报销类型，确定当前使用的 vendor 及对应的银行账号",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}currentVendor?reimuserId=24941090-06da-11e7-b23d-513f39f5849c&paytypeId=cola",
+							"host": [
+								"{{host}}currentVendor"
+							],
+							"query": [
+								{
+									"key": "reimuserId",
+									"value": "24941090-06da-11e7-b23d-513f39f5849c"
+								},
+								{
+									"key": "paytypeId",
+									"value": "cola"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "出纳收到发票 or 确认不需要发票",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"idArr\": [\"PR201710001\"],\n  \"action\": \"noNeed\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}orderInvoice",
+							"host": [
+								"{{host}}orderInvoice"
+							]
+						},
+						"description": "action 参数\n1. `y`，确认收到发票\n2. `noNeed`，确认不需要发票"
+					},
+					"response": []
+				},
+				{
+					"name": "出纳修改 order 金额",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"PR201711001\",\n  \"details\": [\n    {\n    \"id\": \"43966060-cf3e-11e7-bc4b-f7b978c40ad5\",\n    \"money\": 500\n    },\n    {\n    \"id\": \"43968770-cf3e-11e7-bc4b-f7b978c40ad5\",\n    \"money\": 500\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{host}}cashierUpdateAmount",
+							"host": [
+								"{{host}}cashierUpdateAmount"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "出纳接收打印的 order",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}printedOrder?orderId=201705001",
+							"host": [
+								"{{host}}printedOrder"
+							],
+							"query": [
+								{
+									"key": "orderId",
+									"value": "201705001"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "导入申请单",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \"filePath\":\"payment.xlsx\",\n \"type\":\"company\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}importOrderExcel",
+							"host": [
+								"{{host}}importOrderExcel"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "报销申请单-expense",
+			"description": null,
+			"item": [
+				{
+					"name": "审批流程",
+					"description": null,
+					"item": [
+						{
+							"name": "提交",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"idArr\": [\"NE201804002\"]\n}"
+								},
+								"url": {
+									"raw": "{{host}}expenses/stateMachine/submit",
+									"host": [
+										"{{host}}expenses"
+									],
+									"path": [
+										"stateMachine",
+										"submit"
+									]
+								},
+								"description": "出纳能够修改的字段只有 bankNum,bankName\n其它字段是用于计算的\n\norder 状态为 payFailed 时\n更新并提交：\n  增加 isSubmit 字段"
+							},
+							"response": []
+						},
+						{
+							"name": "财务经理批准",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"idArr\": [\"NE201804002\"]\n}"
+								},
+								"url": {
+									"raw": "{{host}}expenses/stateMachine/financeAppro",
+									"host": [
+										"{{host}}expenses"
+									],
+									"path": [
+										"stateMachine",
+										"financeAppro"
+									]
+								},
+								"description": "出纳能够修改的字段只有 bankNum,bankName\n其它字段是用于计算的\n\norder 状态为 payFailed 时\n更新并提交：\n  增加 isSubmit 字段"
+							},
+							"response": []
+						},
+						{
+							"name": "财务经理拒绝",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"idArr\": [\"NE201804002\"]\n}"
+								},
+								"url": {
+									"raw": "{{host}}expenses/stateMachine/financeRefuse",
+									"host": [
+										"{{host}}expenses"
+									],
+									"path": [
+										"stateMachine",
+										"financeRefuse"
+									]
+								},
+								"description": "出纳能够修改的字段只有 bankNum,bankName\n其它字段是用于计算的\n\norder 状态为 payFailed 时\n更新并提交：\n  增加 isSubmit 字段"
+							},
+							"response": []
+						},
+						{
+							"name": "出纳付款",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"idArr\": [\"NE201804002\"]\n}"
+								},
+								"url": {
+									"raw": "{{host}}expenses/stateMachine/cashierPay",
+									"host": [
+										"{{host}}expenses"
+									],
+									"path": [
+										"stateMachine",
+										"cashierPay"
+									]
+								},
+								"description": "出纳能够修改的字段只有 bankNum,bankName\n其它字段是用于计算的\n\norder 状态为 payFailed 时\n更新并提交：\n  增加 isSubmit 字段"
+							},
+							"response": []
+						},
+						{
+							"name": "出纳确认付款成功",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"idArr\": [\"NE201804002\"]\n}"
+								},
+								"url": {
+									"raw": "{{host}}expenses/stateMachine/cashierPaySucceed",
+									"host": [
+										"{{host}}expenses"
+									],
+									"path": [
+										"stateMachine",
+										"cashierPaySucceed"
+									]
+								},
+								"description": "出纳能够修改的字段只有 bankNum,bankName\n其它字段是用于计算的\n\norder 状态为 payFailed 时\n更新并提交：\n  增加 isSubmit 字段"
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "expenses",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"filePath\": \"20180330/测试-报销 Excel.xlsx\",\n\t\"sheetName\": \"non-chargeable expense\",\n\t\"paymentDate\": \"2018-03-12\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}expenses",
+							"host": [
+								"{{host}}expenses"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "申请单科目拆分-ordersubject",
+			"description": "申请单科目拆分",
+			"item": [
+				{
+					"name": "get ordersubject list|getordersubjectlist",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}ordersubjects?orderId=201705003",
+							"host": [
+								"{{host}}ordersubjects"
+							],
+							"query": [
+								{
+									"key": "orderId",
+									"value": "201705003"
+								}
+							]
+						},
+						"description": "res:ordersubjectlist\nstate:ordersubjectlist"
+					},
+					"response": []
+				},
+				{
+					"name": "create ordersubject|createordersubject",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"orderId\" : \"201705004\",\n  \"details\": [{\n    \"type\": \"debit\",\n    \"money\": 1000,\n    \"subjectId\": \"111a73a0-06da-11e7-b23d-513f39f5849c\",\n    \"description\": \"描述1\"\n  },{\n    \"type\": \"credit\",\n    \"money\": 1000,\n    \"subjectId\": \"222a73a0-06da-11e7-b23d-513f39f5849c\",\n    \"description\": \"描述2\"\n  }]\n}"
+						},
+						"url": {
+							"raw": "{{host}}ordersubjects",
+							"host": [
+								"{{host}}ordersubjects"
+							]
+						},
+						"description": "res:ordersubject\nstate:ordersubject\n必填项：\n  type\n  money\n  subjectId\n  orderId"
+					},
+					"response": []
+				},
+				{
+					"name": "get ordersubject|getordersubject",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}ordersubjects/{{ordersubjectid}}",
+							"host": [
+								"{{host}}ordersubjects"
+							],
+							"path": [
+								"{{ordersubjectid}}"
+							]
+						},
+						"description": "res:ordersubject\nstate:ordersubject"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "科目管理-subject",
+			"description": "科目管理",
+			"item": [
+				{
+					"name": "get subject list|getsubjectlist",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}subjects",
+							"host": [
+								"{{host}}subjects"
+							]
+						},
+						"description": "res:subjectlist\nstate:subjectlist"
+					},
+					"response": []
+				},
+				{
+					"name": "create subject|createsubject",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\" : \"科目1\",\n  \"bankFlag\" : \"\",\n  \"code\" : \"eio\",\n  \"accountType\" : \"\",\n  \"bankNum\" : \"\",\n  \"bankCode\" : \"\",\n  \"remark\" : \"\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}subjects",
+							"host": [
+								"{{host}}subjects"
+							]
+						},
+						"description": "res:subject\nstate:subject\n必填项：\n  id"
+					},
+					"response": []
+				},
+				{
+					"name": "update subject|updatesubject",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\" : \"\",\n  \"bankFlag\" : \"\",\n  \"code\" : \"\",\n  \"accountType\" : \"\",\n  \"bankNum\" : \"\",\n  \"bankCode\" : \"\",\n  \"remark\" : \"\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}subjects/{{subjectid}}",
+							"host": [
+								"{{host}}subjects"
+							],
+							"path": [
+								"{{subjectid}}"
+							]
+						},
+						"description": "res:subject\nstate:subject"
+					},
+					"response": []
+				},
+				{
+					"name": "delete subject|deletesubject",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": {
+							"raw": "{{host}}subjects/{{subjectid}}",
+							"host": [
+								"{{host}}subjects"
+							],
+							"path": [
+								"{{subjectid}}"
+							]
+						},
+						"description": "res:subject\nstate:subject"
+					},
+					"response": []
+				},
+				{
+					"name": "get subject|getsubject",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}subjects/{{subjectid}}",
+							"host": [
+								"{{host}}subjects"
+							],
+							"path": [
+								"{{subjectid}}"
+							]
+						},
+						"description": "res:subject\nstate:subject"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "系统参数-argmain",
+			"description": "系统参数",
+			"item": [
+				{
+					"name": "get argmain list|getargmainlist",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}argmains",
+							"host": [
+								"{{host}}argmains"
+							]
+						},
+						"description": "res:argmainlist\nstate:argmainlist"
+					},
+					"response": []
+				},
+				{
+					"name": "create argmain|createargmain",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\" : \"\",\n  \"name\" : \"\",\n  \"editFlag\" : \"\",\n  \"remark\" : \"\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}argmains",
+							"host": [
+								"{{host}}argmains"
+							]
+						},
+						"description": "res:argmain\nstate:argmain\n必填项：\n  id"
+					},
+					"response": []
+				},
+				{
+					"name": "update argmain|updateargmain",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\" : \"\",\n  \"editFlag\" : \"\",\n  \"remark\" : \"\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}argmains/{{argmainid}}",
+							"host": [
+								"{{host}}argmains"
+							],
+							"path": [
+								"{{argmainid}}"
+							]
+						},
+						"description": "res:argmain\nstate:argmain"
+					},
+					"response": []
+				},
+				{
+					"name": "delete argmain|deleteargmain",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": {
+							"raw": "{{host}}argmains/{{argmainid}}",
+							"host": [
+								"{{host}}argmains"
+							],
+							"path": [
+								"{{argmainid}}"
+							]
+						},
+						"description": "res:argmain\nstate:argmain"
+					},
+					"response": []
+				},
+				{
+					"name": "get argmain|getargmain",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}argmains/{{argmainid}}",
+							"host": [
+								"{{host}}argmains"
+							],
+							"path": [
+								"{{argmainid}}"
+							]
+						},
+						"description": "res:argmain\nstate:argmain"
+					},
+					"response": []
+				},
+				{
+					"name": "get setup summary|getsetupsummary",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}setup/summary",
+							"host": [
+								"{{host}}setup"
+							],
+							"path": [
+								"summary"
+							]
+						},
+						"description": "获取系统设置中的所有数据"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "系统参数详情-argdetail",
+			"description": "系统参数详情",
+			"item": [
+				{
+					"name": "get argdetail list|getargdetaillist",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}argdetails",
+							"host": [
+								"{{host}}argdetails"
+							]
+						},
+						"description": "res:argdetaillist\nstate:argdetaillist"
+					},
+					"response": []
+				},
+				{
+					"name": "create argdetail|createargdetail",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\" : \"\",\n  \"name\" : \"\",\n  \"remark\" : \"\",\n  \"argmainId\" : \"\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}argdetails",
+							"host": [
+								"{{host}}argdetails"
+							]
+						},
+						"description": "res:argdetail\nstate:argdetail\n必填项：\n  id\n  argmainId"
+					},
+					"response": []
+				},
+				{
+					"name": "update argdetail|updateargdetail",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\" : \"\",\n  \"remark\" : \"\",\n  \"argmainId\" : \"\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}argdetails/{{argdetailid}}",
+							"host": [
+								"{{host}}argdetails"
+							],
+							"path": [
+								"{{argdetailid}}"
+							]
+						},
+						"description": "res:argdetail\nstate:argdetail"
+					},
+					"response": []
+				},
+				{
+					"name": "delete argdetail|deleteargdetail",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": {
+							"raw": "{{host}}argdetails/{{argdetailid}}",
+							"host": [
+								"{{host}}argdetails"
+							],
+							"path": [
+								"{{argdetailid}}"
+							]
+						},
+						"description": "res:argdetail\nstate:argdetail"
+					},
+					"response": []
+				},
+				{
+					"name": "get argdetail|getargdetail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}argdetails/{{argdetailid}}",
+							"host": [
+								"{{host}}argdetails"
+							],
+							"path": [
+								"{{argdetailid}}"
+							]
+						},
+						"description": "res:argdetail\nstate:argdetail"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "汇率相关",
+			"description": null,
+			"item": [
+				{
+					"name": "新增/修改汇率",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"date\":\"2018-06\",\n    \"currency\":\"USD\",\n    \"rate\":10\n\t\n}"
+						},
+						"url": {
+							"raw": "{{host}}excRate",
+							"host": [
+								"{{host}}excRate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "获取汇率",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}excRate?date=2018-05-10",
+							"host": [
+								"{{host}}excRate"
+							],
+							"query": [
+								{
+									"key": "date",
+									"value": "2018-05-10"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "银行流水相关",
+			"description": null,
+			"item": [
+				{
+					"name": "获取收款或付款单号",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}commonId?transactionType=Payment&mark=201805",
+							"host": [
+								"{{host}}commonId"
+							],
+							"query": [
+								{
+									"key": "transactionType",
+									"value": "Payment"
+								},
+								{
+									"key": "mark",
+									"value": "201805"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "获取银行流水详情",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}bankStatement/e4189850-53a0-11e8-91c7-31386169b0dd",
+							"host": [
+								"{{host}}bankStatement"
+							],
+							"path": [
+								"e4189850-53a0-11e8-91c7-31386169b0dd"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "获取银行流水列表",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}bankStatement?subjectId=222a73a0-06da-11e7-b23d-513f39f5849c&limit=20&offset=0",
+							"host": [
+								"{{host}}bankStatement"
+							],
+							"query": [
+								{
+									"key": "subjectId",
+									"value": "222a73a0-06da-11e7-b23d-513f39f5849c"
+								},
+								{
+									"key": "index",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "date",
+									"value": "[2018-05-09,2018-05-11]",
+									"disabled": true
+								},
+								{
+									"key": "commonId",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "transactionType",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "voucherId",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "description",
+									"value": "测试",
+									"disabled": true
+								},
+								{
+									"key": "money",
+									"value": "100",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "20"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "创建银行流水",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"costType\":\"Inhouse\",\n\t\"subjectId\":\"222a73a0-06da-11e7-b23d-513f39f5849c\",\n\t\"index\":1,\n\t\"date\":\"2018-05-01\",\n\t\"transactionType\":\"Receipt\",\n\t\"commonId\":\"34fb2b90-4f3f-11e8-a86d-ab4feeaa8312\",\n\t\"money\":300,\n\t\"bankCharge\":0,\n\t\"description\":\"测试\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}bankStatement",
+							"host": [
+								"{{host}}bankStatement"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "删除银行流水记录",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}bankStatement/:id",
+							"host": [
+								"{{host}}bankStatement"
+							],
+							"path": [
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "61ce8f10-541a-11e8-a94c-ed7d61034374"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "拖拽银行流水",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"id\":\"cc5be780-541d-11e8-93cf-0d4d96373f31\",\"index\":4}"
+						},
+						"url": {
+							"raw": "{{host}}changeIndex",
+							"host": [
+								"{{host}}changeIndex"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "更新银行流水",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"index\":5,\n\t\"date\":\"2018-05-09\",\n\t\"commonId\":\"f3db8450-5440-11e8-a74b-93f43fa1f492\",\n\t\"description\":\"测试\",\n\t\"money\":100,\n\t\"bankCharge\":20,\n\t\"subjectId\":\"222a73a0-06da-11e7-b23d-513f39f5849c\",\n\t\"costType\":\"Inhouse\",\n\t\"transactionType\":\"Payment\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}bankStatement/f3db8450-5440-11e8-a74b-93f43fa1f492",
+							"host": [
+								"{{host}}bankStatement"
+							],
+							"path": [
+								"f3db8450-5440-11e8-a74b-93f43fa1f492"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "凭证相关",
+			"description": null,
+			"item": [
+				{
+					"name": "获取凭证列表",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}voucher?subjectId=222a73a0-06da-11e7-b23d-513f39f5849c&voucherId=GC1805HBR11-P000&limit=10&offset=0&transactionType=Receipt",
+							"host": [
+								"{{host}}voucher"
+							],
+							"query": [
+								{
+									"key": "subjectId",
+									"value": "222a73a0-06da-11e7-b23d-513f39f5849c"
+								},
+								{
+									"key": "voucherId",
+									"value": "GC1805HBR11-P000"
+								},
+								{
+									"key": "voucherDate",
+									"value": null,
+									"description": "传一个数组0号位时起始时间1号位时结束时间",
+									"disabled": true
+								},
+								{
+									"key": "money",
+									"value": "100",
+									"disabled": true
+								},
+								{
+									"key": "flowStatus",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								},
+								{
+									"key": "transactionType",
+									"value": "Receipt"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "创建凭证接口",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"costType\":\"Inhouse\",\n\t\"voucherDate\":\"2018-05-14\",\n\t\"transactionType\":\"Receipt\",\n\t\"vendorId\":\"248a4c90-06da-11e7-b23d-513f39f5849c\",\n\t\"companyId\":\"12387241-06da-11e7-b23d-513f39f5849c\",\n\t\"remark\":\"test\",\n\t\"voucherDetails\":[{\n\t\t\"money\":100,\n\t\t\"bankFlag\":\"y\",\n\t\t\"remark\":\"test\",\n\t\t\"type\":\"credit\",\n\t\t\"subjectId\":\"222a73a0-06da-11e7-b23d-513f39f5849c\"\n\t\t\n\t},{\n\t\t\"money\":200,\n\t\t\"bankFlag\":\"n\",\n\t\t\"remark\":\"test\",\n\t\t\"type\":\"debit\",\n\t\t\"subjectId\":\"222a73a0-06da-11e7-b23d-513f39f5849c\"\n\t}],\n\t\"bankStatements\":[\"d46f8c40-59ab-11e8-8b96-99f3eea93681\"]\n}"
+						},
+						"url": {
+							"raw": "{{host}}voucher",
+							"host": [
+								"{{host}}voucher"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "获取凭证详情",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}voucher/1805HBP11-P000",
+							"host": [
+								"{{host}}voucher"
+							],
+							"path": [
+								"1805HBP11-P000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "更新凭证",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"voucherDate\":\"2018-05-12\",\n\t\"remark\":\"123456\",\n\t\"voucherDetails\":[{\n\t\t\"money\":200,\n\t\t\"bankFlag\":\"y\",\n\t\t\"remark\":\"test\",\n\t\t\"type\":\"credit\",\n\t\t\"subjectId\":\"222a73a0-06da-11e7-b23d-513f39f5849c\"\n\t\t\n\t}]\n}"
+						},
+						"url": {
+							"raw": "{{host}}voucher/GC1805HBR11-P000",
+							"host": [
+								"{{host}}voucher"
+							],
+							"path": [
+								"GC1805HBR11-P000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "凭证打印接口",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}printVoucher/GC1805HBR11-P000",
+							"host": [
+								"{{host}}printVoucher"
+							],
+							"path": [
+								"GC1805HBR11-P000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "导出凭证接口",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}downloadVoucher/GC1805HBR11-P000",
+							"host": [
+								"{{host}}downloadVoucher"
+							],
+							"path": [
+								"GC1805HBR11-P000"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "A-测试-test",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}test",
+					"host": [
+						"{{host}}test"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

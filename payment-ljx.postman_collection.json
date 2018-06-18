@@ -1,0 +1,258 @@
+{
+	"info": {
+		"name": "payment-ljx",
+		"_postman_id": "59356b9d-fa33-1d22-4de5-629a32e8e5cc",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "收款 - receipt",
+			"description": "",
+			"item": [
+				{
+					"name": "获取收款列表",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{host}}receipts",
+							"host": [
+								"{{host}}receipts"
+							],
+							"query": [
+								{
+									"key": "paidNo",
+									"value": "",
+									"equals": true,
+									"disabled": true
+								},
+								{
+									"key": "collectDate",
+									"value": "2018-03-01,2018-03-31",
+									"equals": true,
+									"disabled": true
+								},
+								{
+									"key": "currency",
+									"value": "",
+									"equals": true,
+									"disabled": true
+								},
+								{
+									"key": "amount",
+									"value": "",
+									"equals": true,
+									"disabled": true
+								},
+								{
+									"key": "subjectName",
+									"value": "BOC_CONSTRUCTION_GTB",
+									"equals": true,
+									"disabled": true
+								},
+								{
+									"key": "description",
+									"value": "",
+									"equals": false,
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "",
+									"equals": false,
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "",
+									"equals": false,
+									"disabled": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "新建 收款",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"description\": \"这是一段测试 4\",\n\t\"currency\": \"CNY\",\n\t\"amount\": 10000,\n\t\"amountCNY\": 10000,\n\t\"excRate\": 1,\n\t\"collectDate\": \"2018-03-30\",\n\t\"voucherDate\": \"2018-03-30\",\n\t\"filePath\": \"1234\",\n\t\"remark\": \"1234\",\n\t\"subjectId\": \"85e67aa1-3653-11e8-90d4-e92c88fcffa8\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}receipts",
+							"host": [
+								"{{host}}receipts"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "更新收款",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"excRate\": 1,\n    \"status\": 1,\n    \"description\": \"这是一段测试 3\",\n    \"currency\": \"CNY\",\n    \"amount\": 10000,\n    \"amountCNY\": 10000,\n    \"collectDate\": \"2018-03-29\",\n    \"voucherDate\": \"2018-03-29\",\n    \"filePath\": \"123\",\n    \"remark\": \"\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}receipts/:id",
+							"host": [
+								"{{host}}receipts"
+							],
+							"path": [
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "09db6f30-3331-11e8-9bc7-a5cddd0bd36f"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "获取单个收款",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{host}}receipts/:id",
+							"host": [
+								"{{host}}receipts"
+							],
+							"path": [
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "09db6f30-3331-11e8-9bc7-a5cddd0bd36f"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "更新科目拆分",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"ordersubjects\": [\n\t\t{\n            \"subjectId\": \"f6faafe4-3329-11e8-81f6-77196a140a0c\",\n            \"type\": \"debit\",\n            \"money\": 4000,\n            \"description\": \"今天天气不错\"\n\t\t},\n\t\t{\n            \"subjectId\": \"f6faafe4-3329-11e8-81f6-77196a140a0c\",\n            \"type\": \"debit\",\n            \"money\": 6000,\n            \"description\": \"今天是晴天\"\t\t\t\n\t\t}\n\t]\n}"
+						},
+						"url": {
+							"raw": "{{host}}receipts/:id/ordersubjects",
+							"host": [
+								"{{host}}receipts"
+							],
+							"path": [
+								":id",
+								"ordersubjects"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "09db6f30-3331-11e8-9bc7-a5cddd0bd36f"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "统计",
+			"description": "",
+			"item": [
+				{
+					"name": "员工报销统计",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"voucherDate\": {\n\t\t\"begin\": \"2018-04-01\",\n\t\t\"end\": \"2018-04-30\"\n\t},\n\t\"type\": \"byMonth\",\n\t\"paytypes\": [\"COLA\", \"Car-fixed\"],\n\t\"reimusers\": [\"24941090-06da-11e7-b23d-513f39f5849c\"],\n\t\"excludeType\": false\n}"
+						},
+						"url": {
+							"raw": "{{host}}statistics/reimusers",
+							"host": [
+								"{{host}}statistics"
+							],
+							"path": [
+								"reimusers"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "银行流水统计",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"voucherDate\": {\n\t\t\"begin\": \"2018-04-01\",\n\t\t\"end\": \"2018-04-30\"\n\t},\n\t\n\t\"type\": \"order\",\n\t\"bankNums\": [\"111111111111111111\"],\n\t\"excludeType\": true\n}"
+						},
+						"url": {
+							"raw": "{{host}}statistics/banks",
+							"host": [
+								"{{host}}statistics"
+							],
+							"path": [
+								"banks"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

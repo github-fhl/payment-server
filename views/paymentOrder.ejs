@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PAYMENT REQUEST FORM</title>
+
+    <link rel="stylesheet" href="/api/print/css/order.css">
+    <script src="/api/print/js/jquery.js"></script>
+    <script src="/api/print/js/order.js"></script>
+    <script language="javascript">
+        function preview()
+        {
+            window.print();
+        }
+    </script>
+</head>
+<body>
+<div class="book" id="book">
+    <button class="print-btn" type=button onclick=preview()>Print</button>
+    <div class="page" id="page">
+        <div class="subpage">
+
+            <!--header-->
+            <div class="header">
+
+                <!--logo-->
+                <% if (logoPath) {  %>
+                <div class="logo"><img src="<%= serverurl+logoPath %>" alt=""></div>
+                <% }%>
+
+                <!--top-->
+                <div class="top">
+                    <table class="table table-border">
+                        <colgroup>
+                            <col width="50%">
+                            <col width="50%">
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <td>Form #</td>
+                                <td id="orderId"><%= orderId%></td>
+                            </tr>
+                            <tr>
+                                <td>Fin Received</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Voucher #</td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- 凭证头部 -->
+                <h2>
+                    PAYMENT REQUEST FORM
+                    <small>NON-CHARGEABLE</small>
+                </h2>
+
+                <!-- 贷方科目  贷方名称 -->
+                <table class="table table-header">
+                    <colgroup>
+                        <col width="14%">
+                        <col width="23%">
+                        <col width="12%">
+                        <col width="26%">
+                        <col width="7%">
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <td>Applicant</td>
+                            <td><span class="ipt ipt-r1"><%= applicant %></span></td>
+                            <td>Department</td>
+                            <td><span class="ipt ipt-r1"><%= department %></span></td>
+                            <td>Ext. #</td>
+                            <td><span class="ipt"><%= telephoneNumber%></span></td>
+                        </tr>
+                        <tr>
+                            <td colspan="6">
+                                <div class="sub-c">
+                                    Gross Amount Requested <span class="cur"><%= currency%></span>
+                                    <span class="ipt ipt-small tar"></span>
+                                </div><div class="main-c">
+                                    <strong>Total Amount to be Paid</strong>
+                                    <span class="cur"><%= currency%></span>
+                                    <span class="ipt ipt-small ipt-primary"><%= amount %></span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Account Name</td>
+                            <td colspan="5">
+                                <span class="ipt ipt-lager" style="width:60%"><%= contacter %></span><div class="swift-code" style="width:40%">SWIFT Code <span class="ipt ipt-middle"></span></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Bank Name</td>
+                            <td colspan="5"><span class="ipt"><%= bankName %></span></td>
+                        </tr>
+                        <tr>
+                            <td class="account">Account Number</td>
+                            <td colspan="5"><%= bankNum %></td>
+                        </tr>
+                        <tr>
+                            <td>Payment <br>Description</td>
+                            <td colspan="5"><span class="ipt ipt-high"><%= description %></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+
+
+            <table class="table table-primary table-main print-break" data-wrap="tbody" data-tag="tr">
+                <colgroup>
+                    <col width="19%">
+                    <col width="23%">
+                    <col width="18%">
+                    <col width="8%">
+                    <col width="11%">
+                    <col width="8%">
+                </colgroup>
+                <tbody>
+
+                    <!-- Details footer -->
+                    <tr>
+                        <th>
+                            Company
+                        </th> <th>
+                            Remark
+                        </th>
+                        <th>Paytype</th>
+                        <th>Currency</th>
+                        <th>Amount Requested<br>(local currency)</th>
+                        <th>EX Rate</th>
+                        <th>Payment Amount <br> (RMB)</th>
+                    </tr>
+
+                    <!-- Details content -->
+                    <%
+                    var total=0;
+                    var formatMoney=(e)=>{
+                        var num=(Math.round(e * Math.pow( 10, 2  ))/Math.pow(10,2)).toFixed(2);
+                        var parts = num.toString().split(".");
+                        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                        return parts.join(".");
+                    }
+
+                    details.forEach((item,index)=>{
+                        total+=item.money
+                        var money=formatMoney(item.money);
+                    %>
+                    <tr>
+                        <td><%= item.company.name %></td>
+                        <td><%= item.remark %></td>
+                        <td>
+                            <%= item.paytypeId %>
+                            <% if (item.paytypedetailId) {  %>
+                            / <%= item.paytypedetailId %>
+                            <% }%>
+                        </td>
+                        <td class="tac"><%= currency %></td>
+                        <td class="tar"><%= money %></td>
+                        <td class="tar">1</td>
+                        <td class="td-primary"><i>¥</i><%= money %></td>
+                    </tr>
+                    <%})%>
+
+                    <!-- Details footer -->
+                    <tr class="table-primary-footer">
+                        <td colspan="6">TOTAL PAYMENT AMOUNT IN RMB</td>
+                        <td class="td-primary"><i>¥</i><%= formatMoney(total) %></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="table table-primary">
+                <colgroup>
+                    <col width="82%">
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <th colspan="2">Finance Remark</th>
+                    </tr>
+                    <tr>
+                        <td>Individual Income Tax</td>
+                        <td class="td-primary"><i>¥</i>0.00</td>
+                    </tr>
+                    <tr>
+                        <td>Withholding Tax - VAT</td>
+                        <td class="td-primary"><i>¥</i>0.00</td>
+                    </tr>
+                    <tr>
+                        <td>Withholding Tax - Surtaxes</td>
+                        <td class="td-primary"><i>¥</i>0.00</td>
+                    </tr>
+                    <tr>
+                        <td>Withholding Tax - Corporate Income Tax</td>
+                        <td class="td-primary"><i>¥</i>0.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="table table-border table-signature">
+                <colgroup>
+                    <col width="25%">
+                    <col width="25%">
+                    <col width="25%">
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <td>Requested by
+                            <div class="signature-img">
+                                <% if (picUrl.applicant) {  %>
+                                <img src="<%= serverurl+picUrl.applicant %>" alt="">
+                                <% }%>
+                            </div>
+                            <span class="date">Date <%= date.applicant %></span>
+                        </td>
+                        <td>Approved by Team Head<span class="date">Date <%= date.manager %></span>
+                            <div class="signature-img">
+                                <% if (picUrl.manager) {  %>
+                                <img src="<%= serverurl+picUrl.manager %>" alt="">
+                                <% }%>
+                            </div>
+                        </td>
+                        <td>Verified by Finance<span class="date">Date <%= date.finance %></span>
+                            <div class="signature-img">
+                                <% if (picUrl.finance) {  %>
+                                <img src="<%= serverurl+picUrl.finance %>" alt="">
+                                <% }%>
+                            </div>
+                        </td>
+                        <td>Approved by Finance Director<span class="date">Date <%= date.chief %></span>
+                            <div class="signature-img">
+                                <% if (picUrl.chief) {  %>
+                                <img src="<%= serverurl+picUrl.chief %>" alt="">
+                                <% }%>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <div class="page">
+
+        <!-- 新的表格打印 -->
+        <div class="subpage landscape">
+            <table class="table table-primary table-main print-break" data-wrap="tbody" data-tag="tr">
+                <colgroup>
+                    <col width="10%">
+                    <col width="25%">
+                    <col width="7%">
+                    <col width="8%">
+                    <col width="14%">
+                    <col width="12%">
+                </colgroup>
+                <tbody>
+
+                    <!-- Details footer -->
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Month</th>
+                        <th>Amount</th>
+                        <th>Name in Bank</th>
+                        <th>Bank Name</th>
+                        <th>Bank account</th>
+                        <th>Remark</th>
+                    </tr>
+
+                    <!-- Details content -->
+                    <%
+                    var total=0;
+                    var formatMoney=(e)=>{
+                        var num=(Math.round(e * Math.pow( 10, 2  ))/Math.pow(10,2)).toFixed(2);
+                        var parts = num.toString().split(".");
+                        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                        return parts.join(".");
+                    }
+
+                    details.forEach((item,index)=>{
+                        total+=item.money
+                        var money=formatMoney(item.money);
+                    %>
+                    <tr>
+                        <td><%= item.reimuser.name %></td>
+                        <td>
+                            <%= item.paytypeId %>
+                            <% if (item.paytypedetailId) {  %>
+                            / <%= item.paytypedetailId %>
+                            <% }%>
+                        </td>
+                        <td><%= item.payDate %></td>
+                        <td class="tar"> <%= item.money %></td>
+                        <td><%= item.vendor.name %></td>
+                        <td><%= item.bankName %></td>
+                        <td><%= item.bankNum %></td>
+                        <td><%= item.remark %></td>
+                    </tr>
+                    <%})%>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

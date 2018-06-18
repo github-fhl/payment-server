@@ -1,0 +1,14 @@
+{
+  "apps" : [{
+    "name"        : "payment_service" ,
+    "script"      : "/www/service/payment-service/app.js",
+    "watch"       :false,
+    "log_file"    : "./log/payment_service.combined",
+    "error_file"  : "./log/payment_service.errs",
+    "out_file"    : "./log/payment_service.logs",
+    "log_date_format" : "YYYY-MM-DD HH:mm:ss",
+    "env": {
+      "NODE_ENV": "production"
+    }
+  }]
+}

@@ -1,0 +1,62 @@
+exports.debug=true;
+exports.test=true;
+exports.smsdebug=true;
+exports.cluster=false;
+
+
+if (exports.debug)
+{
+    exports.mysql = {
+        database : "payment",
+        protocol : "mysql",
+        host     : "127.0.0.1",
+        port     : 3306,         // optional, defaults to database default
+        user : "root",
+        password : "root",
+        connectionLimit : 50,
+        query    : {
+            pool  :  true,    // optional, false by default
+            debug : true    // optional, false by default
+        },
+        timezone: '+08:00'
+    };
+}else{
+    exports.mysql = {
+        database : "payment",
+        protocol : "mysql",
+        host     : "10.139.152.224",
+        port     : 3306,         // optional, defaults to database default
+        user : "root",
+        password : "GTBpaymentLoncus_2017",
+        connectionLimit : 50,
+        query    : {
+            pool  :  true,    // optional, false by default
+            debug : false    // optional, false by default
+        },
+        timezone: '+08:00'
+    };
+}
+
+
+if(process.argv[2] == 'mocha-test'){
+  exports.mysql.database += '_mocha'
+}
+else if (exports.test)
+{
+    exports.mysql.database += '_test'
+}
+let path = require("path");
+exports.uploaddir= __dirname+"/public/upload/";
+exports.downloaddir= __dirname+"/public/download/";
+exports.serverurl = exports.test ? "http://localhost:3000/api/" : "http://10.139.152.224:8080/api/";
+exports.domain='';
+
+exports.project = 'payment 2.0';
+exports.projectkey = 'wArXUZUPeQjAQiYVrGFhBh3PaXHUFSn50XcPVdylBD5LxUrhDP8wg2zbktS1cTlFGkMH3oeCakE5stnDEI+LhyCUizGs8jw96rMOxNFcxA7TbDnmP1bXBa8i02Pxy/+y/tCIvv4KEkzhulC25R0EZRBPTbAxZLGT9L5PsN49Gww='
+
+
+exports.accountsalt='111';
+exports.hexcharacters='0123456789ABCDEF';
+
+exports.staticdir="public";
+

@@ -1,0 +1,115 @@
+﻿body {
+  margin:0px;
+  background-image:none;
+  position:static;
+  left:auto;
+  width:1893px;
+  margin-left:0;
+  margin-right:0;
+  text-align:left;
+}
+#base {
+  position:absolute;
+  z-index:0;
+}
+#u1862_img {
+  position:absolute;
+  left:0px;
+  top:0px;
+  width:1893px;
+  height:978px;
+}
+#u1862 {
+  position:absolute;
+  left:0px;
+  top:0px;
+  width:1893px;
+  height:978px;
+}
+#u1863 {
+  position:absolute;
+  left:2px;
+  top:482px;
+  width:1889px;
+  word-wrap:break-word;
+}
+#u1864_div {
+  position:absolute;
+  left:0px;
+  top:0px;
+  width:132px;
+  height:28px;
+  background:inherit;
+  background-color:rgba(16, 142, 233, 1);
+  border:none;
+  border-radius:0px;
+  -moz-box-shadow:none;
+  -webkit-box-shadow:none;
+  box-shadow:none;
+  font-family:'PingFangSC-Regular', 'PingFang SC';
+  font-weight:400;
+  font-style:normal;
+  font-size:12px;
+  color:#FFFFFF;
+  text-align:left;
+}
+#u1864 {
+  position:absolute;
+  left:221px;
+  top:115px;
+  width:132px;
+  height:28px;
+  font-family:'PingFangSC-Regular', 'PingFang SC';
+  font-weight:400;
+  font-style:normal;
+  font-size:12px;
+  color:#FFFFFF;
+  text-align:left;
+}
+#u1865 {
+  position:absolute;
+  left:16px;
+  top:6px;
+  width:100px;
+  white-space:nowrap;
+}
+#u1866_div {
+  position:absolute;
+  left:0px;
+  top:0px;
+  width:97px;
+  height:18px;
+  background:inherit;
+  background-color:rgba(255, 255, 255, 0);
+  border:none;
+  border-radius:0px;
+  -moz-box-shadow:none;
+  -webkit-box-shadow:none;
+  box-shadow:none;
+  font-family:'PingFangSC-Regular', 'PingFang SC';
+  font-weight:400;
+  font-style:normal;
+  font-size:12px;
+  color:#F04134;
+  line-height:18px;
+}
+#u1866 {
+  position:absolute;
+  left:221px;
+  top:268px;
+  width:97px;
+  height:18px;
+  font-family:'PingFangSC-Regular', 'PingFang SC';
+  font-weight:400;
+  font-style:normal;
+  font-size:12px;
+  color:#F04134;
+  line-height:18px;
+}
+#u1867 {
+  position:absolute;
+  left:0px;
+  top:0px;
+  width:97px;
+  white-space:nowrap;
+}

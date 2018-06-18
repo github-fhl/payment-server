@@ -1,0 +1,1 @@
+mysqldump -uroot -pGTBpaymentLoncus_2017 payment  | gzip > /www/databackup/database_`date '+%m-%d-%Y'`.sql.gz

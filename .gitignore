@@ -1,0 +1,7 @@
+.idea/
+databaseFiles
+node_modules/
+npm-debug.log
+config.js
+public/*
+models/路径.txt

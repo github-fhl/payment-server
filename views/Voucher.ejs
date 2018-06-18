@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>付 款 凭 证</title>
+    <link rel="stylesheet" href="/api/print/css/voucher.css">
+    <script src="/api/print/js/jquery.js"></script>
+    <script src="/api/print/js/order.js"></script>
+    <script language="javascript">
+        function preview()
+        {
+            window.print();
+        }
+        if('<%= transactionType %>'==='Receipt'){
+              document.title='收 款 凭 证'
+        }
+    </script>
+</head>
+<body class="<%= transactionType %>">
+<div class="book" id="book">
+    <button class="print-btn" type=button onclick=preview()>打印</button>
+    <div class="page" id="page">
+        <div class="subpage">
+
+            <!-- 凭证头部 -->
+            <div class="header">
+                <h2 class="js-payment">付 款 凭 证</h2>
+                <h2 class="js-payment">payment voucher</h2>
+
+                <h2 class="js-receipt">收 款 凭 证</h2>
+                <h2 class="js-receipt">receipt voucher</h2>
+
+                <!--logo-->
+                <% if (logoPath) {  %>
+                <div class="logo"><img src="/api/<%= logoPath %>" alt=""></div>
+                <% }%>
+
+                <!-- 贷方科目  贷方名称 -->
+                <div class="header-l">
+                    <p>
+                        <span class="js-payment">贷方科目</span><span class="js-receipt">借方科目</span>：
+                        <span class="ipt-account">
+                            <%= name %>
+                        </span>
+                        <br>
+                        <span class="js-payment">Credit Account</span><span class="js-receipt">Debit Account</span>
+
+                    </p>
+                    <p>
+                        供应商名称：
+                        <span class="ipt-vendor">
+                            <%= vendorName %> <br /><%= vendorCode %>
+                        </span>
+                        <br>
+                        Vendor code
+                    </p>
+                </div>
+
+                <!-- 日期 -->
+                <div class="header-c">
+                    日期：<span class="data-item"><%= year %></span>年<span class="data-item"><%= month %></span>月<span class="data-item"><%= day %></span>日
+                </div>
+
+                <!-- 凭证号 -->
+                <div class="header-r">
+                    <span class="js-payment">付款凭证号</span><span class="js-receipt">收款凭证号</span>：<span class="ipt-voucher" id="orderId"><%= paidNo %>
+                    </span>
+                    <br>
+                    <span class="name">
+                        <span class="js-payment">Payment</span><span class="js-receipt">Receipt</span> Voucher #
+                    </span>
+                </div>
+            </div>
+
+            <!-- 凭证内容 -->
+
+            <!-- content -->
+            <table class="voucher-table print-break" data-wrap="tbody" data-tag="tr">
+                <colgroup>
+                    <col width="48%" style="padding:1pt">
+                    <col width="23%">
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                </colgroup>
+                <tbody>
+                <tr>
+                    <th rowspan="2">摘要 <br>Explanation</th>
+                    <th rowspan="2">总账科目<br>Gen.Leg.A/c</th>
+                    <th colspan="11">金额<br>Amount</th>
+                </tr>
+                <tr class="amount-tr">
+                    <th>亿</th>
+                    <th>千</th>
+                    <th>百</th>
+                    <th>十</th>
+                    <th>万</th>
+                    <th>千</th>
+                    <th>百</th>
+                    <th>十</th>
+                    <th>元</th>
+                    <th>角</th>
+                    <th>分</th>
+                </tr>
+                <%
+                var total=0
+                details.forEach((item,index)=>{
+                total+=item.money
+                var money=('           '+Math.floor(item.money * 100)).substr(-11)
+                %>
+                <tr class="tableTr">
+                    <td class="text-td"><%= item.description%></td>
+                    <td class="text-td"><%= item.subject.name%> <%= item.subject.code%></td>
+
+                    <%
+                    [].forEach.call(money,
+                    (item)=>{
+                    %>
+                    <td><%= item%></td>
+                    <%})%>
+                </tr>
+                <%})%>
+
+                <tr class="total">
+                    <td colspan="2" class="text-td">合计 Total</td>
+                    <%
+                    [].forEach.call(('           ¥'+Math.floor(total * 100)).substr(-11),
+                    (item)=>{
+                    %>
+                    <td><%= item%></td>
+                    <%})%>
+                </tr>
+                </tbody>
+            </table>
+
+            <!--签名-->
+            <div class="signature">
+                <div class="item"><span class="name">出纳：<br>Cashier</span>
+                    <% if (cashierPath ) {  %>
+                    <img src="/api/<%= cashierPath  %>">
+                    <% }%>
+                </div>
+                <div class="item"><span class="name">记账：<br>Entered</span>
+                    <% if (enterPath ) {  %>
+                    <img src="/api/<%= enterPath  %>">
+                    <% }%>
+                </div>
+                <div class="item"><span class="name">审核：<br>Approved</span>
+                    <% if (approvedPath ) {  %>
+                    <img src="/api/<%= approvedPath  %>">
+                    <% }%>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
